@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Supabase + Next.js CRUD App
+
+This is a simple CRUD (Create, Read, Update, Delete) application built with [Supabase](https://supabase.com/) as the backend and [Next.js](https://nextjs.org/) as the frontend framework. The app demonstrates basic CRUD functionality for managing a task list.
+
+## Features
+
+- **Create**: Add new tasks with a title.
+- **Read**: Display a list of all tasks.
+- **Update**: (Planned) Update task titles or their completion status.
+- **Delete**: Remove tasks from the list.
+- **Backend**: Supabase for database and API integration.
+- **Frontend**: Next.js with React for rendering and user interaction.
+
+---
+
+## Tech Stack
+
+- **Frontend**: Next.js, React
+- **Backend**: Supabase (PostgreSQL)
+- **CSS**: Module-based styling for custom components
+- **API Routes**: Next.js App Router
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **Node.js** (version 18 or higher)
+2. **Supabase Account**: Sign up at [Supabase](https://supabase.com/).
+3. **Git**: Ensure Git is installed on your system.
+
+---
+
+### Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Create a .env.local file in the project root and add your Supabase credentials:
+
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+   NEXT_PUBLIC_SUPABASE_KEY=<your-supabase-anon-key>
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open the app in your browser at http://localhost:3000.
+
+---
+
+### Setting Up Supabase
+
+1. Log in to your Supabase dashboard.
+2. Create a new project.
+3. Go to the SQL editor and run the following query to create a tasks table:
+   ```sql
+   CREATE TABLE tasks (
+       id SERIAL PRIMARY KEY,
+       title TEXT NOT NULL,
+       completed BOOLEAN DEFAULT FALSE
+   );
+   ```
+4. Add your Supabase project's URL and API key to .env.local as shown in the installation steps.
+
+---
+
+### Project Structure
+
+```
+.
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   ├── tasks
+│   │   │   │   ├── create
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── delete
+│   │   │   │   │   └── route.ts
+│   │   ├── tasks
+│   │   │   └── page.tsx
+│   ├── lib
+│   │   └── supabaseClient.ts
+│   ├── styles
+│   │   └── tasks.module.css
+├── public
+├── .env.local
+├── README.md
+└── package.json
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Contributing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Contributions are welcome! If you have suggestions or find issues, feel free to open a GitHub issue or submit a pull request.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### License
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under the MIT License.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Acknowledgments
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Supabase for the powerful backend-as-a-service.
+Next.js for its flexible frontend framework.
