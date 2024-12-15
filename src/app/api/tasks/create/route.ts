@@ -10,7 +10,9 @@ export async function POST(request: Request) {
 
   const { data, error } = await supabase
     .from('tasks')
-    .insert([{ title, completed: false }]);
+    .insert([{ title, completed: false }])
+    .select()
+    .single();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -17,6 +17,7 @@ export default function TasksPage() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [newTask, setNewTask] = useState("");
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
     // Fetch tasks
     useEffect(() => {
@@ -28,6 +29,8 @@ export default function TasksPage() {
             } catch (err: any) {
                 console.error("Error fetching tasks: ", err);
                 setError("Failed to load tasks. Please try again.");
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -54,11 +57,21 @@ export default function TasksPage() {
             }
 
             const addedTask = await response.json();
-            setTasks((prev) => [...prev, ...addedTask]);
+            console.log("API Response:", addedTask); // Debug the response
+            console.log("Task added response: ", addedTask);
+            const task = Array.isArray(addedTask) ? addedTask[0] : addedTask;
+
+            if (task && task.id && task.title) {
+                setTasks((prev) => [...prev, task]);
+            } else {
+                console.error("Invalid task format:", task);
+                setError("Failed to add task, invalid response format.");
+            }
+
             setNewTask("");
         } catch (err: any) {
             console.error("Error adding task: ", err);
-            setError("Failed to add task, Please try again");
+            setError(`Failed to add task, Please try again ${err}`);
         }
     };
 
@@ -82,6 +95,9 @@ export default function TasksPage() {
         }
     };
 
+    if (loading) {
+        return <div className={styles.container}><p>Loading tasks...</p></div>;
+    }
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Tasks Page</h1>
@@ -101,15 +117,17 @@ export default function TasksPage() {
             </div>
 
             <ul className={styles.taskList}>
-                {tasks.map((task) => (
-                    <li key={task.id} className={styles.taskItem}>
-                        {task.title}
-                        <button onClick={() => handleDeleteTask(task.id)}
-                            className={styles.deleteButton}
-                        >
-                            Delete
-                        </button>
-                    </li>
+                {tasks?.map((task) => (
+                    task && (
+                        <li key={task.id} className={styles.taskItem}>
+                            {task.title}
+                            <button onClick={() => handleDeleteTask(task.id)}
+                                className={styles.deleteButton}
+                            >
+                                Delete
+                            </button>
+                        </li>
+                    )
                 ))}
             </ul>
         </div>
