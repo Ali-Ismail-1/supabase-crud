@@ -102,7 +102,7 @@ export default function TasksPage() {
 
             <ul className={styles.taskList}>
                 {tasks.map((task) => (
-                    <li key={task.id} className="{styles.taskItem}">
+                    <li key={task.id} className={styles.taskItem}>
                         {task.title}
                         <button onClick={() => handleDeleteTask(task.id)}
                             className={styles.deleteButton}

@@ -53,6 +53,10 @@
 }
 
 .taskItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
   background-color: #fff;
